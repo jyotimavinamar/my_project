@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import AdminDashboard from './pages/AdminDashboard'
@@ -15,7 +15,7 @@ function PrivateRoute({ children, allowedRole }) {
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -35,7 +35,7 @@ function App() {
           </PrivateRoute>
         } />
       </Routes>
-    </BrowserRouter>
+    </Router>
   )
 }
 
