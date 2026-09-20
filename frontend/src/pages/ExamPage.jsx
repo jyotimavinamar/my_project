@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import axios from 'axios'
+import api from '../api'
 import { useParams, useNavigate } from 'react-router-dom'
 import Proctor from '../components/Proctor'
 
@@ -70,7 +70,7 @@ export default function ExamPage() {
   }, [timeLeft, submitted])
 
   const fetchExam = async () => {
-    const res = await axios.get(`http://localhost:5000/api/exam/all`,
+    const res = await api.get('/api/exam/all',
       { headers: { authorization: token } })
     const found = res.data.find(e => e._id === id)
     setExam(found)
@@ -98,7 +98,7 @@ export default function ExamPage() {
     setSubmitted(true)
     clearTimeout(timerRef.current)
     try {
-      const res = await axios.post('http://localhost:5000/api/result/submit',
+      const res = await api.post('/api/result/submit',
         { examId: id, answers, warnings, tabSwitches, faceNotDetected, multipleFaces, phoneDetected },
         { headers: { authorization: token } })
       alert(`✅ Exam Submitted!\nScore: ${res.data.score}\nPercentage: ${res.data.percentage.toFixed(1)}%\nStatus: ${res.data.status.toUpperCase()}`)

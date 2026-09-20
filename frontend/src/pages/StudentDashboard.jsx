@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../api'
 import { useNavigate } from 'react-router-dom'
 
 export default function StudentDashboard() {
@@ -16,14 +16,14 @@ export default function StudentDashboard() {
   }, [])
 
   const fetchExams = async () => {
-    const res = await axios.get('http://localhost:5000/api/exam/all',
+    const res = await api.get('/api/exam/all',
       { headers: { authorization: token } })
     setExams(res.data)
   }
 
   const fetchResults = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/result/my',
+      const res = await api.get('/api/result/my',
         { headers: { authorization: token } })
       setResults(res.data)
     } catch (err) { console.log(err) }

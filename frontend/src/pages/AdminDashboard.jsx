@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '../api'
 import { useNavigate } from 'react-router-dom'
 
 export default function AdminDashboard() {
@@ -18,14 +18,14 @@ export default function AdminDashboard() {
   }, [])
 
   const fetchExams = async () => {
-    const res = await axios.get('http://localhost:5000/api/exam/all',
+    const res = await api.get('/api/exam/all',
       { headers: { authorization: token } })
     setExams(res.data)
   }
 
   const fetchResults = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/result/all',
+      const res = await api.get('/api/result/all',
         { headers: { authorization: token } })
       setResults(res.data)
     } catch (err) { console.log(err) }
@@ -38,7 +38,7 @@ export default function AdminDashboard() {
 
   const createExam = async () => {
     try {
-      await axios.post('http://localhost:5000/api/exam/create', form,
+      await api.post('/api/exam/create', form,
         { headers: { authorization: token } })
       alert('Exam created successfully! ✅')
       fetchExams()

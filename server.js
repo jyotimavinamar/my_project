@@ -6,10 +6,12 @@ const cors = require('cors');
 const app = express();
 
 // Middleware
+const allowedOrigins = process.env.CLIENT_URL ? [process.env.CLIENT_URL] : true;
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:5176'],
+  origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'authorization']
+  allowedHeaders: ['Content-Type', 'authorization'],
+  credentials: true
 }));
 app.use(express.json());
 
